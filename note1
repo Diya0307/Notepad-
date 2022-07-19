@@ -1,0 +1,327 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.io.*;
+class note1 implements ActionListener
+{
+    Frame f,ff,f1;
+    MenuBar mb;
+    Menu fi,ed,fo,fon,st,si,co,rc;
+    MenuItem ne,op,sa,ex,cu,cp,pa,bo,it,pl,te,tw,th,bc,fc,com,ru;
+    String s;
+    Button b1,b2;
+    TextArea ta,ta1,ta2;
+    String save="";
+    String comp="";
+    note1()
+    {
+        f=new Frame("Notepad");
+        ff=new Frame("Compile");
+        f1=new Frame("Run");
+        b1=new Button("OK");
+        b2=new Button("OK");
+        ta=new TextArea();
+        ta2=new TextArea();
+        mb=new MenuBar();
+        fi=new Menu("File");
+        ed=new Menu("Edit");
+        fo=new Menu("Format");
+        fon=new Menu("Font");
+        st=new Menu("Style");
+        si=new Menu("Size");
+        co=new Menu("Color");
+        rc=new Menu("Compile and Run");
+        com=new MenuItem("Compile");
+        ru=new MenuItem("Run");
+        ne=new MenuItem("New");
+        op=new MenuItem("Open");
+        sa=new MenuItem("Save");
+        ex=new MenuItem("Exit");
+        cu=new MenuItem("Cut");
+        cp=new MenuItem("Copy");
+        pa=new MenuItem("Paste");
+        bo=new MenuItem("Bold");
+        it=new MenuItem("Italic");
+        pl=new MenuItem("Plain");
+        te=new MenuItem("10");
+        tw=new MenuItem("20");
+        th=new MenuItem("30");
+        bc=new MenuItem("Background Color");
+        fc=new MenuItem("Font Color");
+        ta1=new TextArea();
+        ff.setLayout(null);
+        f1.setLayout(null);
+        b1.setBounds(50,300,50,50);
+        ta1.setBounds(50,50,200,200);
+        b2.setBounds(50,300,50,50);
+        ta2.setBounds(50,50,200,200);
+        ff.add(b1);
+        ff.add(ta1);
+        f1.add(b2);
+        f1.add(ta2);
+        co.add(bc);
+        co.add(fc);
+        si.add(te);
+        si.add(tw);
+        si.add(th);
+        st.add(bo);
+        st.add(it);
+        st.add(pl);
+        fon.add(si);
+        fon.add(st);
+        fo.add(fon);
+        fo.add(co);
+        fi.add(ne);
+        fi.add(op);
+        fi.add(sa);
+        fi.add(ex);
+        ed.add(cu);
+        ed.add(cp);
+        ed.add(pa);
+        mb.add(fi);
+        mb.add(ed);
+        mb.add(fo);
+        mb.add(rc);
+        rc.add(ru);
+        rc.add(com);
+        f.setMenuBar(mb);
+        f.add(ta);
+        ne.addActionListener(this);
+        op.addActionListener(this);
+        sa.addActionListener(this);
+        ex.addActionListener(this);
+        cu.addActionListener(this);
+        co.addActionListener(this);
+        pa.addActionListener(this);
+        bo.addActionListener(this);
+        it.addActionListener(this);
+        pl.addActionListener(this);
+        te.addActionListener(this);
+        tw.addActionListener(this);
+        th.addActionListener(this);
+        bc.addActionListener(this);
+        fc.addActionListener(this);
+        ru.addActionListener(this);
+        com.addActionListener(this);
+        b1.addActionListener(this);
+        b2.addActionListener(this);
+        ff.setSize(400,400);
+        f1.setSize(400,400);
+        f.setSize(1000,1000);
+        f.setVisible(true);
+    }
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getSource()==ne)
+        {
+            ta.setText("");
+        }
+        else if(e.getSource()==op)
+        {
+            try
+            {
+                JFileChooser jc=new JFileChooser();
+                jc.showOpenDialog(f);
+                String s=jc.getSelectedFile().getName();
+                save=s;
+                FileInputStream f1=new FileInputStream(s);
+                int i=0;
+
+                String s1="";
+                while((i=f1.read())!=-1)
+                {
+                    s1=s1+String.valueOf((char)i);
+                }
+                ta.setText(s1);
+                f1.close();
+            }catch(IOException c){
+
+            }
+        }
+        else if(e.getSource()==sa)
+        {
+            try
+            {
+                JFileChooser jc=new JFileChooser();
+                jc.showSaveDialog(f);
+                String s2=jc.getSelectedFile().getName();
+                save=s2;
+comp=save.substring(0,save.length()-5);
+                FileOutputStream f0=new FileOutputStream(s2);
+                String a=ta.getText();
+                byte b[]=a.getBytes();
+                f0.write(b);
+                f0.close();
+
+            }catch(IOException d){
+                System.out.print( d);
+            }
+        }
+        else if(e.getSource()==ex)
+        {
+            System.exit(0);
+        }
+        else if(e.getSource()==cu)
+        {
+            s=ta.getSelectedText();
+            int i=ta.getSelectionStart();
+            int j=ta.getSelectionEnd();
+            ta.replaceRange("",i,j);
+        }
+        else if(e.getSource()==co)
+        {
+            s=ta.getSelectedText();
+        }
+        else if(e.getSource()==pa)
+        {
+            ta.insert(s,ta.getSelectionStart());
+        }
+        else if(e.getSource()==bo)
+        {
+            Font f0=new Font("Arial",Font.BOLD,20);
+            ta.setFont(f0);
+        }
+        else if(e.getSource()==it)
+        {
+            Font f0=new Font("Arial",Font.ITALIC,20);
+            ta.setFont(f0);
+        }
+        else if(e.getSource()==pl)
+        {
+            Font f0=new Font("Arial",Font.PLAIN,20);
+            ta.setFont(f0);
+        }
+        else if(e.getSource()==te)
+        {
+            Font f0=new Font("Arial",Font.PLAIN,10);
+            ta.setFont(f0);
+        }
+        else if(e.getSource()==tw)
+        {
+            Font f0=new Font("Arial",Font.PLAIN,20);
+            ta.setFont(f0);
+        }
+        else if(e.getSource()==th)
+        {
+            Font f0=new Font("Arial",Font.PLAIN,30);
+            ta.setFont(f0);
+        }
+        else if(e.getSource()==bc)
+        {
+            JColorChooser jc=new JColorChooser();
+            Color c=jc.showDialog(f,"BackgroundColor",Color.red);
+            ta.setBackground(c);
+        }
+        else if(e.getSource()==fc)
+        {
+            JColorChooser jc=new JColorChooser();
+            Color c=jc.showDialog(f,"ForegroundColor",Color.red);
+            ta.setForeground(c);
+        }
+        else if(e.getSource()==com)
+        {
+            if(!save.equals(""))
+            {
+                try
+                {
+
+                    Runtime rt=Runtime.getRuntime();
+                    Process p=rt.exec("javac "+save);
+                    InputStream ir=p.getErrorStream();
+                    int i=0,c=0;
+                    String s="";
+                    while((i=ir.read())!=-1)
+                    {
+                        c+=1;
+                        s=s+String.valueOf((char)i);
+                    }
+                    if(c!=0)
+                    {
+                        ff.setVisible(true);
+                        ta1.setText(s);
+                    }
+                    else
+                    {
+                        ff.setVisible(true);
+                        ta1.setText("Successfully Compiled");
+                    }
+
+                }catch(Exception eedd)
+                {
+                    System.out.print(eedd);
+                }
+                comp=save.substring(0,save.length()-5);
+            }
+
+            else
+            {
+                ff.setVisible(true);
+                ta1.setText("Save the file");
+
+            }
+        }
+        else if(e.getSource()==b1)
+        {
+            ff.setVisible(false);
+        }
+
+        else if(e.getSource()==ru)
+        {
+
+            if(!comp.equals(""))
+            {
+                try
+                {
+                    Runtime rt=Runtime.getRuntime();
+                    Process p=rt.exec("java "+comp);
+                    InputStream ir=p.getErrorStream();
+                    int i=0,c=0;
+                    String s="";
+                    while((i=ir.read())!=-1)
+                    {
+                        c+=1;
+                        s=s+String.valueOf((char)i);
+                    }
+                    if(c!=0)
+                    {
+                        f1.setVisible(true);
+                        ta2.setText(s);
+                    }
+                    else
+                    {
+                        InputStream iir= p.getInputStream();
+                        int ii=0,cc=0;
+                        String ss="";
+                        while((ii=iir.read())!=-1)
+                        {
+                            ss=ss+String.valueOf((char)i);
+                            cc=cc+1;
+                        }
+                        if(cc!=0)
+                        {
+                            f1.setVisible(true);
+                            ta2.setText(ss);
+                        }
+                    }
+
+                }catch(Exception eed)
+                {
+                    System.out.print(eed);
+                }
+            }
+            else
+            {
+                f1.setVisible(true);
+
+            }
+        }
+        else if(e.getSource()==b2)
+        {
+            f1.setVisible(false);
+        }
+    }
+    public static void main(String a[])
+    {
+        note1 n1=new note1();
+    }
+}
